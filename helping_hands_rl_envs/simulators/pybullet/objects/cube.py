@@ -11,9 +11,15 @@ from helping_hands_rl_envs.simulators import constants
 from helping_hands_rl_envs.simulators.pybullet.utils import transformations
 
 class Cube(PybulletObject):
-  def __init__(self, pos, rot, scale):
+  def __init__(self, pos, rot, scale, color='red'):
     root_dir = os.path.dirname(helping_hands_rl_envs.__file__)
-    urdf_filepath = os.path.join(root_dir, constants.URDF_PATH, 'cube.urdf')
+    if color == 'blue':
+      #urdf_filepath = os.path.join(root_dir, constants.OBJECTS_PATH, 'cube_blue.urdf')
+      urdf_filepath = os.path.join(root_dir, constants.URDF_PATH, 'cube_blue.urdf')
+    else:
+      #urdf_filepath = os.path.join(root_dir, constants.OBJECTS_PATH, 'cube.urdf')
+      urdf_filepath = os.path.join(root_dir, constants.URDF_PATH, 'cube.urdf')
+
     object_id = pb.loadURDF(urdf_filepath, basePosition=pos, baseOrientation=rot, globalScaling=scale)
 
     super(Cube, self).__init__(constants.CUBE, object_id)

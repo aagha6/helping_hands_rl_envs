@@ -462,7 +462,7 @@ class PyBulletEnv(BaseEnv):
     return [o.getXYPosition() for o in self.objects]
 
   def _generateShapes(self, shape_type=0, num_shapes=1, scale=None, pos=None, rot=None,
-                           min_distance=None, padding=None, random_orientation=False, z_scale=1, model_id=1):
+                           min_distance=None, padding=None, random_orientation=False, z_scale=1, model_id=1, cube_color='red'):
     ''''''
     # if padding is not set, use the default padding
     if padding is None:
@@ -503,7 +503,12 @@ class PyBulletEnv(BaseEnv):
         scale = npr.choice(np.arange(self.block_scale_range[0], self.block_scale_range[1]+0.01, 0.02))
 
       if shape_type == constants.CUBE:
-        handle = pb_obj_generation.generateCube(position, orientation, scale)
+        # Make sure all blocks have the same height
+        position[2] = 0.025
+        if cube_color == 'blue':
+          handle = pb_obj_generation.generateCube(position, orientation, scale, color='blue')
+        else:
+          handle = pb_obj_generation.generateCube(position, orientation, scale)
       elif shape_type == constants.BRICK:
         handle = pb_obj_generation.generateBrick(position, orientation, scale)
       elif shape_type == constants.TRIANGLE:
@@ -535,10 +540,11 @@ class PyBulletEnv(BaseEnv):
       elif shape_type == constants.SWAB:
         handle = pb_obj_generation.generateSwab(position, orientation, scale, model_id=None)
       elif shape_type == constants.FLAT_BLOCK:
-        handle = pb_obj_generation.generateFlatBlock(position, orientation, scale)
-
+        handle = pb_obj_generation.generateFlatBlock(position, orientation, scale, color=cube_color)
+      
       else:
         raise NotImplementedError
+
       if self.physic_mode == 'slow':
         pb.changeDynamics(handle.object_id, -1, linearDamping=0.04, angularDamping=0.04, restitution=0, contactStiffness=3000, contactDamping=100)
       shape_handles.append(handle)

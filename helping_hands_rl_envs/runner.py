@@ -483,12 +483,15 @@ class SingleRunner(object):
     '''
     return self.env.getObjectPoses()
 
-  def getNextAction(self):
+  def getNextAction(self, target_obj_idx=None):
     '''
 
     '''
     if self.planner:
-      return self.planner.getNextAction()
+      if target_obj_idx is not None:
+        return self.planner.getNextAction(target_obj_idx)
+      else:
+        return self.planner.getNextAction()
     else:
       raise ValueError('Attempting to use a planner which was not initialized.')
 
