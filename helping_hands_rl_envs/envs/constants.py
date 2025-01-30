@@ -67,6 +67,7 @@ from helping_hands_rl_envs.envs.pybullet_envs.close_loop_envs.close_loop_block_p
 from helping_hands_rl_envs.envs.pybullet_envs.close_loop_envs.close_loop_drawer_opening import createCloseLoopDrawerOpeningEnv
 from helping_hands_rl_envs.envs.pybullet_envs.close_loop_envs.close_loop_household_picking import createCloseLoopHouseholdPickingEnv
 from helping_hands_rl_envs.envs.pybullet_envs.close_loop_envs.close_loop_pomdp_block_pulling import createCloseLoopPomdpBlockPullingEnv
+from helping_hands_rl_envs.envs.pybullet_envs.close_loop_envs.close_loop_pomdp_block_picking import createCloseLoopPomdpBlockPickingEnv
 
 CREATE_NUMPY_ENV_FNS = {
   'block_picking' : createBlockPickingEnv,
@@ -151,4 +152,5 @@ CREATE_PYBULLET_ENV_FNS = {
   'close_loop_drawer_opening': createCloseLoopDrawerOpeningEnv,
   'close_loop_household_picking': createCloseLoopHouseholdPickingEnv,
   'close_loop_pomdp_block_pulling': createCloseLoopPomdpBlockPullingEnv,
+  'close_loop_pomdp_block_picking': createCloseLoopPomdpBlockPickingEnv,
 }

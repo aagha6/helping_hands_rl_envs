@@ -439,13 +439,16 @@ class SingleRunner(object):
     else:
       return (states, hand_obs, obs), rewards, dones
 
-  def reset(self):
+  def reset(self, target_obj_idx=None):
     '''
     Reset the environment
 
     Returns: Numpy vector of observations
     '''
-    return self.env.reset()
+    if target_obj_idx is not None:
+      return self.env.reset(target_obj_idx)
+    else:
+      return self.env.reset()
 
   def save(self):
     '''
