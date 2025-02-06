@@ -188,7 +188,7 @@ class MultiRunner(object):
     hand_obs = np.stack(hand_obs)
     obs = np.stack(obs)
     rewards = np.stack(rewards)
-    dones = np.stack(dones).astype(np.float32)
+    dones = np.stack(dones).astype(float)
 
     if metadata:
       return (states, hand_obs, obs), rewards, dones, metadata
