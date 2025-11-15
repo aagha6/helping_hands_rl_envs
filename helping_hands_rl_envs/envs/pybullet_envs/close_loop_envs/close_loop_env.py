@@ -158,7 +158,7 @@ class CloseLoopEnv(PyBulletEnv):
 
   def _getObservation(self, action=None):
     ''''''
-    if self.obs_type is 'pixel':
+    if self.obs_type == 'pixel':
       self.heightmap = self._getHeightmap()
       return self._isHolding(), None, self.heightmap.reshape([1, self.heightmap_size, self.heightmap_size])
     else:
