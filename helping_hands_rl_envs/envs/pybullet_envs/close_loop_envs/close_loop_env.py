@@ -75,11 +75,15 @@ class CloseLoopEnv(PyBulletEnv):
     else:
       done = True
       reward = 0
+
+    terminated = False
+    if done:
+      terminated = True
+
     if not done:
       done = self.current_episode_steps >= self.max_steps
     self.current_episode_steps += 1
-
-    return obs, reward, done
+    return obs, reward, done, {"terminated": terminated}
 
   def setRobotHoldingObj(self):
     self.robot.holding_obj = self.robot.getPickedObj(self.objects)
