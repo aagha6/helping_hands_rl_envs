@@ -163,8 +163,8 @@ class CloseLoopEnv(PyBulletEnv):
   def _getObservation(self, action=None):
     ''''''
     if self.obs_type == 'pixel':
-      self.heightmap = self._getHeightmap()
-      return self._isHolding(), None, self.heightmap.reshape([1, self.heightmap_size, self.heightmap_size])
+      self.heightmap, self.rgb = self._getHeightmap()
+      return self._isHolding(), None, self.heightmap.reshape([1, self.heightmap_size, self.heightmap_size]), self.rgb
     else:
       obs = self._getVecObservation()
       return self._isHolding(), None, obs
@@ -207,12 +207,12 @@ class CloseLoopEnv(PyBulletEnv):
       target_pos = [gripper_pos[0], gripper_pos[1], 0]
       cam_up_vector = [-1, 0, 0]
       self.sensor.setCamMatrix(gripper_pos, cam_up_vector, target_pos)
-      heightmap = self.sensor.getHeightmap(self.heightmap_size)
+      heightmap, rgb_image = self.sensor.getHeightmap(self.heightmap_size)
       if self.view_type == 'camera_center_xyz':
         depth = -heightmap + gripper_pos[2]
       else:
         depth = heightmap
-      return depth
+      return depth, rgb_image
     elif self.view_type in ['camera_center_xy', 'camera_center_xy_height']:
       # xy centered
       target_pos = [gripper_pos[0], gripper_pos[1], 0]

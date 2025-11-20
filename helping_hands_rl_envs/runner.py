@@ -432,12 +432,12 @@ class SingleRunner(object):
       obs, rewards, dones = results
     else:
       obs, rewards, dones, metadata = results
-    states, hand_obs, obs = obs
+    states, hand_obs, obs, rgb_obs = obs
 
     if metadata:
-      return (states, hand_obs, obs), rewards, dones, metadata
+      return (states, hand_obs, obs, rgb_obs), rewards, dones, metadata
     else:
-      return (states, hand_obs, obs), rewards, dones
+      return (states, hand_obs, obs, rgb_obs), rewards, dones
 
   def reset(self, target_obj_idx=None):
     '''

@@ -22,7 +22,7 @@ class Sensor(object):
     depth_img = np.array(image_arr[3])
     depth = self.far * self.near / (self.far - (self.far - self.near) * depth_img)
 
-    return np.abs(depth - np.max(depth)).reshape(size, size)
+    return np.abs(depth - np.max(depth)).reshape(size, size), image_arr[2][...,:3] 
 
   def getPointCloud(self, size, to_numpy=True):
     image_arr = pb.getCameraImage(width=size, height=size,
